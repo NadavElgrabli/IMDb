@@ -1,0 +1,136 @@
+/* Filter and Sort Section */
+.filter-sort {
+  display: flex;
+  flex-direction: column; /* Stack sections vertically */
+  padding: 10px 20px;
+  background-color: #fff;
+}
+
+/* Top Section */
+.filter-sort-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.titles-count {
+  font-size: 18px;
+  color: #000;
+}
+
+.view-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Styling for the view buttons (making them circles without borders) */
+.view-button {
+  width: 40px; /* Make the button a perfect circle */
+  height: 40px;
+  background-color: transparent; /* No background color */
+  border: none; /* Remove border */
+  border-radius: 50%; /* Make buttons circular */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden; /* Hide any border or edge */
+}
+
+/* Apply hover effect */
+.view-button:hover {
+  background-color: #e6e6e6; /* Grey hover effect */
+}
+
+/* Styling for the icons inside the buttons */
+.view-button svg {
+  width: 24px;
+  height: 24px;
+  color: #888; /* Grey color for icons */
+}
+
+.view-button.active svg {
+  color: rgb(8, 103, 245); /* Light blue for active icons */
+}
+
+/* Middle Section - Filter Button */
+.filter-button-container {
+  display: flex;
+  justify-content: flex-start; /* Align the filter button to the left */
+  margin-bottom: 10px;
+}
+
+.filter-button {
+  width: 50px; /* Width for the rectangular shape */
+  height: 30px; /* Height for consistency */
+  background-color: #0165c9; /* Blue background */
+  border: none;
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.filter-button:hover {
+  background-color: #005bb5; /* Darker blue on hover */
+}
+
+/* Adjust the icon size and color inside the filter button */
+.filter-button svg {
+  width: 24px; /* Slightly larger size */
+  height: 24px;
+  color: white; /* White icon color */
+}
+
+/* Bottom Section */
+.filter-sort-bottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.sort-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-section label {
+  font-size: 18px;
+  color: #000000;
+}
+
+.ranking-text {
+  font-size: 18px;
+  color: #0073e6;
+  cursor: pointer;
+  margin-right: 7px;
+}
+
+/* Arrow Button (new) */
+.sort-arrow {
+  width: 30px; /* Make the button a perfect circle */
+  height: 30px;
+  background-color: transparent; /* No background color */
+  border: none; /* Remove border */
+  border-radius: 50%; /* Circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.sort-arrow:hover {
+  background-color: #e6e6e6; /* Grey hover effect */
+}
+
+.sort-arrow svg {
+  width: 18px;
+  height: 18px;
+  color: #3300ff; /* Light blue color for the icon */
+}

@@ -1,0 +1,126 @@
+/* Movie Card Compact */
+.movie-card {
+  position: relative; /* Enables positioning child elements relative to this */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.movie-card.detailed-view {
+  border: none;
+  padding: 0;
+}
+
+.movie-card.detailed-view .bookmark-icon {
+  top: -3px;
+  left: -7px;
+}
+
+.bookmark-icon {
+  position: absolute;
+  top: 8px; /* Adjust as needed */
+  left: 4px; /* Adjust as needed */
+  color: #272626; /* Bookmark icon color */
+  font-size: 40px; /* Adjust size as needed */
+  cursor: pointer;
+  opacity: 0.9; /* Translucent effect */
+}
+
+.bookmark-icon:hover {
+  opacity: 0.8;
+}
+
+.plus-icon {
+  position: absolute;
+  left: 28%;
+  top: 14%;
+  font-size: 16px;
+  color: white;
+}
+
+.movie-card img {
+  height: 120px; /* Increased height */
+  width: 80px; /* Reduced width */
+  margin-right: 15px; /* Reduced margin */
+  border-top-left-radius: 0; /* Sharp top-left corner */
+  border-top-right-radius: 15px; /* Rounded top-right corner */
+  border-bottom-right-radius: 15px; /* Rounded bottom-right corner */
+  border-bottom-left-radius: 15px; /* Rounded bottom-left corner */
+  object-fit: cover;
+}
+
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+}
+
+.movie-card h3 {
+  font-size: 16px;
+  margin: 0;
+  color: #000;
+}
+
+.movie-meta {
+  font-size: 13px;
+  color: #6d6d6d;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.movie-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.star-icon {
+  font-size: 20px;
+  color: #f5c518;
+}
+
+.rating-value {
+  font-size: 13px;
+  color: #808080;
+}
+
+.rate-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background-color: #fff;
+  color: #0057b8;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.rate-button .rate-star-icon {
+  font-size: 18px;
+  color: #0057b8;
+}
+
+.rate-button:hover {
+  background-color: #d9d9d9;
+}
+
+.info-button {
+  font-size: 28px;
+  color: #0057b8;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 20px; /* Make it circular */
+}
+
+.info-button:hover {
+  background-color: #d9d9d9;
+}

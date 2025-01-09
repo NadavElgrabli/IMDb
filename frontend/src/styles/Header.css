@@ -1,0 +1,165 @@
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  padding: 7px 10px;
+  background-color: #000;
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-grow: 1; /* Allow the left side of the header to take up remaining space */
+}
+
+.logo {
+  height: 32px; /* Make IMDb logo slightly smaller */
+}
+
+.menu-button {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.menu-button .menu-icon {
+  margin-right: 8px;
+  font-size: 24px; /* Made the menu icon larger */
+}
+
+.menu-button:hover {
+  background-color: #222;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* This makes the search container flexible */
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%; /* Take up available space */
+  max-width: 900px; /* Increased max-width to make search bar longer */
+}
+
+.all-dropdown {
+  background-color: #fff;
+  border: none;
+  border-right: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px 0 0 5px;
+}
+
+.search-bar {
+  flex-grow: 1;
+  padding: 8px; /* Decreased height of the search bar */
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-button {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.search-button svg {
+  font-size: 20px; /* Adjusted size for magnifying glass */
+  color: grey; /* Kept magnifying glass grey */
+}
+
+/* Header-right section (buttons) */
+.header-right {
+  display: flex;
+  align-items: center;
+  flex-grow: 0;
+}
+
+/* General styling for the buttons */
+.header-button {
+  padding: 8px 12px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.header-button:hover {
+  background-color: #222;
+}
+
+.language-dropdown {
+  padding: 10px 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.language-dropdown:hover {
+  background-color: #222;
+}
+
+/* IMDbPro Button */
+.imdbpro-button {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  color: #1d99f3;
+  cursor: pointer;
+}
+
+.imdbpro-button .imdb-text {
+  color: white;
+  font-weight: bolder;
+}
+
+.imdbpro-button .pro-text {
+  color: rgb(108, 183, 230);
+  font-weight: bolder;
+}
+
+.watchlist-button {
+  display: flex;
+  align-items: center;
+}
+
+.watchlist-icon {
+  margin-right: 8px; /* Space between the icon and text */
+  font-size: 24px; /* Adjusted size for the new watchlist icon */
+}
+
+/* Adjust separator positioning */
+.header-separator {
+  width: 1px; /* Thickness of the line */
+  height: 38px; /* Adjust height as needed */
+  background-color: rgb(78, 77, 77);
+  margin: 0 0px; /* Adjusted margin to move separator more to the right */
+}
+
+/* Extra black space beneath the header */
+.header-extension {
+  background-color: #000; /* Black background */
+  height: 30px; /* Adjustable height */
+  width: 100%;
+  border-top: none; /* Removed line separator between header and extension */
+}

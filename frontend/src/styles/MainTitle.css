@@ -1,0 +1,88 @@
+/* Main Title */
+.main-title {
+  text-align: left;
+  padding-left: 20px;
+  padding-top: 37px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+/* Main Title Header */
+.main-title-header {
+  display: flex;
+  justify-content: space-between; /* Align elements to opposite ends */
+  align-items: center; /* Center vertically */
+}
+
+/* Title Styling */
+.main-title h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  margin: 0;
+}
+
+/* Share Section */
+.share-section {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between "Share" and the button */
+  padding-right: 15px;
+  padding-top: 15px;
+}
+
+.share-text {
+  font-size: 17px; /* Slightly larger text */
+  color: #000;
+  cursor: default; /* Make text unclickable */
+}
+
+/* Share Button */
+.share-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: 36px; /* Increase width for hover circle */
+  height: 36px; /* Increase height for hover circle */
+  border-radius: 50%; /* Make it circular */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.share-button:hover {
+  background-color: #ededed; /* Dark grey circle on hover */
+}
+
+.share-button svg {
+  width: 24px; /* Larger icon size */
+  height: 24px;
+  color: #868686; /* Dark grey icon color */
+  transition: color 0.3s ease; /* Smooth icon color transition */
+}
+
+/* Subtitle Styling */
+.main-title h1 {
+  font-size: 37px;
+  font-weight: normal;
+  color: #000;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.main-title h1::before {
+  content: " | ";
+  color: orange;
+  font-size: 37px;
+  margin-right: 10px;
+}
+
+.main-title p {
+  font-size: 16px;
+  color: #777;
+  margin-top: 15px;
+}

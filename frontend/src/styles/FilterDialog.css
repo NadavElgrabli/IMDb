@@ -1,0 +1,134 @@
+/* Overlay for the dialog */
+.filter-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Dialog box */
+.filter-dialog {
+  background-color: #1e1e1e;
+  width: 700px; /* Increased width */
+  height: 450px; /* Increased height */
+  padding: 30px;
+  border-radius: 10px;
+  color: #fff;
+  position: relative;
+}
+
+/* Close button outside the dialog box */
+.dialog-close-button {
+  position: absolute;
+  top: -40px; /* Positioned outside */
+  right: 5px; /* Positioned outside */
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #fff; /* White color */
+  cursor: pointer;
+}
+
+.dialog-close-button:hover {
+  color: #aaa;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 12px;
+  color: #ffc107;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+/* Genres Container */
+.genres-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.genre-button {
+  padding: 5px 10px;
+  border: 1px solid #555;
+  border-radius: 20px;
+  color: #fff;
+  background-color: transparent;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.genre-button:hover {
+  background-color: #2f2e2e;
+}
+
+/* Show All Genres Link (Changed to button) */
+.show-all-genres {
+  background: none;
+  border: none;
+  color: #2681e3;
+  cursor: pointer;
+  font-size: 15px;
+  text-decoration: none; /* Removed underline */
+  padding: 0;
+  margin-top: 15px;
+}
+
+.show-all-genres:hover {
+  color: #0056b3;
+}
+
+/* Release Year Inputs */
+.year-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.year-inputs input {
+  flex: 1; /* Allow inputs to share space */
+  padding: 14px; /* Larger input boxes */
+  background-color: #1e1e1e;
+  border: 1px solid #555;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.to-text {
+  color: #fff;
+}
+
+/* IMDb Ratings Section */
+.user-rating-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-rating-container input {
+  flex: 1;
+  padding: 14px; /* Larger input boxes */
+  background-color: #1e1e1e;
+  border: 1px solid #555;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.user-rating-title {
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Separator Line */
+.separator-line {
+  border-top: 1px solid #404040; /* Dark grey */
+  margin: 20px 0;
+}
