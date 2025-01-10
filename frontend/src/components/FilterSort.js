@@ -54,7 +54,7 @@ const FilterSort = ({ onViewChange, currentViewType }) => {
       <div className="filter-sort-bottom">
         <div className="sort-section">
           <label>Sort by</label>
-          <span className="ranking-text">Ranking ▼</span>
+          <button className="sort-button">Ranking ▼</button>
           <button className="sort-arrow">
             <FaArrowUpLong />
           </button>

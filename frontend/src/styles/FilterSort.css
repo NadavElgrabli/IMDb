@@ -104,11 +104,16 @@
   color: #000000;
 }
 
-.ranking-text {
+.sort-button {
   font-size: 18px;
   color: #0073e6;
-  cursor: pointer;
-  margin-right: 7px;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+}
+
+.sort-button:hover {
+  background-color: #e6e6e6; /* Grey hover effect */
 }
 
 /* Arrow Button (new) */

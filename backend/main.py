@@ -1,13 +1,21 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import List
 from backend.models import SessionLocal, Movie
+from fastapi.middleware.cors import CORSMiddleware
+from backend.utils.sorting import apply_sorting  # Import the sorting logic
 
-# FastAPI app
 app = FastAPI()
 
-# Dependency to get a database session
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 def get_db():
     db = SessionLocal()
     try:
@@ -15,7 +23,6 @@ def get_db():
     finally:
         db.close()
 
-# Pydantic schema for Movie
 class MovieBase(BaseModel):
     Image_Link: str
     Title: str
@@ -38,15 +45,25 @@ class MovieResponse(MovieBase):
     class Config:
         orm_mode = True
 
-# CRUD Endpoints
-
 @app.get("/")
 async def root():
     return {"message": "Welcome to the IMDb Movies API!"}
 
 @app.get("/movies", response_model=List[MovieResponse])
-def get_movies(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    movies = db.query(Movie).offset(skip).limit(limit).all()
+def get_movies(
+    skip: int = 0,
+    limit: int = 10,
+    sort_by: str = Query("rating", regex="^(rating|year|title|genre)$"),  # Default sorting by rating
+    sort_order: str = Query("desc", regex="^(asc|desc)$"),  # Default to descending order
+    db: Session = Depends(get_db),
+):
+    query = db.query(Movie)
+    
+    # Apply sorting logic
+    query = apply_sorting(query, sort_by, sort_order)
+    
+    # Apply pagination
+    movies = query.offset(skip).limit(limit).all()
     return movies
 
 @app.post("/movies", response_model=MovieResponse)
