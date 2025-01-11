@@ -1,3 +1,4 @@
+// MovieList.js
 import React from "react";
 import MovieCardDetailed from "./MovieCardDetailed";
 import MovieCardCompact from "./MovieCardCompact";

@@ -139,3 +139,35 @@
   height: 18px;
   color: #3300ff; /* Light blue color for the icon */
 }
+
+/* Dropdown Styling */
+.sort-dropdown {
+  position: relative; /* Set relative to position the dropdown */
+}
+
+.sort-menu {
+  position: absolute; /* Position dropdown on top of other elements */
+  top: 100%; /* Place dropdown right below the button */
+  left: 0; /* Align dropdown to the left of the button */
+  z-index: 10; /* Ensure it appears on top of other elements */
+  background-color: white; /* White background inside the dropdown */
+  border: 1px solid #ccc; /* Grey border around the dropdown */
+  border-radius: 4px; /* Slight rounding on edges */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Light shadow for depth */
+  list-style: none; /* Remove black circles (default list style) */
+  padding: 5px 0; /* Vertical padding for items */
+  margin: 0; /* Remove margin for clean placement */
+  width: 150px; /* Set dropdown width for consistent styling */
+}
+
+.sort-menu li {
+  padding: 8px 12px; /* Space inside each menu item */
+  font-size: 16px; /* Text size */
+  color: #333; /* Dark grey text color */
+  cursor: pointer; /* Pointer cursor for items */
+}
+
+.sort-menu li:hover {
+  background-color: #006affe4; /* Light grey hover effect */
+  color: #ffffff; /* Blue text on hover */
+}

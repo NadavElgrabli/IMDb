@@ -1,3 +1,4 @@
+# main.py
 from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
@@ -27,6 +28,8 @@ class MovieBase(BaseModel):
     Image_Link: str
     Title: str
     Year: int
+    Certificate: str
+    Runtime: str
     Genre: str
     Rating: float
     Description: str
@@ -53,7 +56,7 @@ async def root():
 def get_movies(
     skip: int = 0,
     limit: int = 10,
-    sort_by: str = Query("rating", regex="^(rating|year|title|genre)$"),  # Default sorting by rating
+    sort_by: str = Query("rating", regex="^(rating|year|title|genre|runtime)$"),  # Default sorting by rating
     sort_order: str = Query("desc", regex="^(asc|desc)$"),  # Default to descending order
     db: Session = Depends(get_db),
 ):

@@ -1,3 +1,4 @@
+// FilterSort.js
 import React, { useState } from "react";
 import { IoFilter } from "react-icons/io5";
 import { FaListUl } from "react-icons/fa";
@@ -7,8 +8,25 @@ import { FaArrowUpLong } from "react-icons/fa6";
 import FilterDialog from "./FilterDialog";
 import "./../styles/FilterSort.css";
 
-const FilterSort = ({ onViewChange, currentViewType }) => {
+const FilterSort = ({ onViewChange, currentViewType, onSortChange }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [currentSort, setCurrentSort] = useState("Ranking"); // Default sort option
+  const [sortOrder, setSortOrder] = useState("desc"); // Default sort order
+
+  const handleSortChange = (sortBy) => {
+    if (sortBy !== currentSort) {
+      setCurrentSort(sortBy);
+      setIsDropdownOpen(false);
+      onSortChange(sortBy, sortOrder); // Pass sort option and order to parent
+    }
+  };
+
+  const toggleSortOrder = () => {
+    const newSortOrder = sortOrder === "desc" ? "asc" : "desc";
+    setSortOrder(newSortOrder);
+    onSortChange(currentSort, newSortOrder); // Update sort order in parent
+  };
 
   return (
     <div className="filter-sort">
@@ -54,9 +72,32 @@ const FilterSort = ({ onViewChange, currentViewType }) => {
       <div className="filter-sort-bottom">
         <div className="sort-section">
           <label>Sort by</label>
-          <button className="sort-button">Ranking ▼</button>
-          <button className="sort-arrow">
-            <FaArrowUpLong />
+          <div className="sort-dropdown">
+            <button
+              className="sort-button"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              {currentSort} ▼
+            </button>
+            {isDropdownOpen && (
+              <ul className="sort-menu">
+                <li onClick={() => handleSortChange("Ranking")}>Ranking</li>
+                <li onClick={() => handleSortChange("Release Date")}>
+                  Release Date
+                </li>
+                <li onClick={() => handleSortChange("Alphabetical")}>
+                  Alphabetical
+                </li>
+                <li onClick={() => handleSortChange("Runtime")}>Runtime</li>
+              </ul>
+            )}
+          </div>
+          <button className="sort-arrow" onClick={toggleSortOrder}>
+            <FaArrowUpLong
+              style={{
+                transform: sortOrder === "desc" ? "rotate(180deg)" : "none",
+              }}
+            />
           </button>
         </div>
       </div>

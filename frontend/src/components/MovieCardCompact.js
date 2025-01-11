@@ -14,17 +14,17 @@ const MovieCardCompact = ({ movie, isDetailedView = false }) => {
         <IoBookmarkSharp />
         <FaPlus className="plus-icon" />
       </div>
-      <img src={`/${movie.poster}`} alt={movie.title} />
+      <img src={movie.Image_Link} alt={movie.title} />
       <div className="movie-details">
-        <h3>{movie.title}</h3>
+        <h3>{movie.Title}</h3>
         <p className="movie-meta">
-          <span>{movie.year}</span>
-          <span>{movie.duration}</span>
-          <span>R</span>
+          <span>{movie.Year}</span>
+          <span>{movie.Runtime}</span>
+          <span>{movie.Certificate}</span>
         </p>
         <div className="movie-rating">
           <FaStar className="star-icon" />
-          <span className="rating-value">{movie.rating}</span>
+          <span className="rating-value">{movie.Rating}</span>
           <button className="rate-button">
             <FaRegStar className="rate-star-icon" />
             Rate

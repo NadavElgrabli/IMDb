@@ -1,108 +1,117 @@
 // App.js
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "./components/Header";
 import MainTitle from "./components/MainTitle";
 import FilterSort from "./components/FilterSort";
 import MovieList from "./components/MovieList";
 import Footer from "./components/Footer";
-import { useState } from "react";
 
 const App = () => {
-  const [viewType, setViewType] = useState("compact"); // Default to grid view
+  const [viewType, setViewType] = useState("compact");
+  const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [sortBy, setSortBy] = useState("rating");
+  const [sortOrder, setSortOrder] = useState("desc");
 
-  const movies = [
-    {
-      id: 1,
-      title: "The Shawshank Redemption 123",
-      year: 1994,
-      duration: "2h 22m",
-      rating: "9.3",
-      poster: "1.jpg",
-      description:
-        "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-      director: "Frank Darabont",
-      stars: "Tim Robbins, Morgan Freeman, Bob Gunton",
-    },
-    {
-      id: 2,
-      title: "The Godfather",
-      year: 1972,
-      duration: "2h 55m",
-      rating: "9.2",
-      poster: "1.jpg",
-      description:
-        "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-      director: "Francis Ford Coppola",
-      stars: "Marlon Brando, Al Pacino, James Caan",
-    },
-    {
-      id: 3,
-      title: "The Dark Knight",
-      year: 2008,
-      duration: "2h 32m",
-      rating: "9.0",
-      poster: "1.jpg",
-      description:
-        "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-      director: "Christopher Nolan",
-      stars: "Christian Bale, Heath Ledger, Aaron Eckhart",
-    },
-    {
-      id: 4,
-      title: "The Dark Knight 2",
-      year: 2008,
-      duration: "2h 32m",
-      rating: "9.0",
-      poster: "1.jpg",
-      description:
-        "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-      director: "Christopher Nolan",
-      stars: "Christian Bale, Heath Ledger, Aaron Eckhart",
-    },
-    {
-      id: 5,
-      title: "The Dark Knight 3",
-      year: 2008,
-      duration: "2h 32m",
-      rating: "9.0",
-      poster: "1.jpg",
-      description:
-        "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-      director: "Christopher Nolan",
-      stars: "Christian Bale, Heath Ledger, Aaron Eckhart",
-    },
-    {
-      id: 6,
-      title: "The Dark Knight 4",
-      year: 2008,
-      duration: "2h 32m",
-      rating: "9.0",
-      poster: "1.jpg",
-      description:
-        "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-      director: "Christopher Nolan",
-      stars: "Christian Bale, Heath Ledger, Aaron Eckhart",
-    },
-    {
-      id: 7,
-      title: "The Dark Knight 5",
-      year: 2008,
-      duration: "2h 32m",
-      rating: "9.0",
-      poster: "1.jpg",
-      description:
-        "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-      director: "Christopher Nolan",
-      stars: "Christian Bale, Heath Ledger, Aaron Eckhart",
-    },
-  ];
+  const fetchMovies = async (
+    pageToFetch = 0,
+    currentSortBy,
+    currentSortOrder
+  ) => {
+    setIsLoading(true);
+
+    try {
+      const limit = 10; // Number of movies per page
+      const response = await fetch(
+        `http://127.0.0.1:8000/movies?skip=${
+          pageToFetch * limit
+        }&limit=${limit}&sort_by=${currentSortBy}&sort_order=${currentSortOrder}`
+      );
+      const data = await response.json();
+
+      // Validate if data is an array
+      if (Array.isArray(data)) {
+        // Avoid duplicate movies by using a Map for unique entries
+        setMovies((prevMovies) => {
+          const movieMap = new Map(
+            prevMovies.map((movie) => [movie.id, movie])
+          );
+          data.forEach((movie) => movieMap.set(movie.id, movie));
+          return Array.from(movieMap.values());
+        });
+
+        // Check if more movies are available
+        if (data.length < limit) {
+          setHasMore(false);
+        }
+      } else {
+        console.error("Expected an array but got:", data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch movies:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleScroll = useCallback(() => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 50 >=
+      document.documentElement.offsetHeight
+    ) {
+      if (hasMore && !isLoading) {
+        setPage((prevPage) => prevPage + 1); // Increment page number
+      }
+    }
+  }, [hasMore, isLoading]); // Memoize handleScroll to avoid unnecessary re-renders
+
+  useEffect(() => {
+    fetchMovies(page, sortBy, sortOrder);
+  }, [page, sortBy, sortOrder]); // Refetch movies when sortBy or sortOrder changes
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]); // Add handleScroll to the dependency array
+
+  const handleSortChange = (sortType, order) => {
+    // Map sort types to API parameters
+    const sortMapping = {
+      Ranking: "rating",
+      "Release Date": "year",
+      Alphabetical: "title",
+      Runtime: "runtime",
+    };
+
+    const mappedSortBy = sortMapping[sortType];
+    if (mappedSortBy) {
+      setSortBy(mappedSortBy);
+      setSortOrder(order);
+      setMovies([]);
+      setPage(0);
+      setHasMore(true);
+    } else {
+      console.error(`Invalid sort type: ${sortType}`);
+    }
+  };
 
   return (
     <div>
       <Header />
       <MainTitle />
-      <FilterSort onViewChange={setViewType} currentViewType={viewType}/>
+      <FilterSort
+        onViewChange={setViewType}
+        currentViewType={viewType}
+        onSortChange={handleSortChange}
+      />
       <MovieList movies={movies} viewType={viewType} />
+      {isLoading && <p>Loading...</p>}
+      {!hasMore && <p>No more movies to load.</p>}
       <Footer />
     </div>
   );

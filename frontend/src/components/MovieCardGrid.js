@@ -10,7 +10,7 @@ const MovieCardGrid = ({ movie }) => {
     <div className="movie-card-grid">
       <div className="movie-card-item">
         <div className="movie-poster">
-          <img src={movie.poster} alt={movie.title} />
+          <img src={movie.Image_Link} alt={movie.Title} />
           <div className="bookmark-icon-grid">
             <IoBookmarkSharp />
             <FaPlus className="plus-icon" />
@@ -19,16 +19,16 @@ const MovieCardGrid = ({ movie }) => {
         <div className="movie-info">
           <div className="movie-rating">
             <FaStar className="star-icon" />
-            <span className="rating-value">{movie.rating}</span>
+            <span className="rating-value">{movie.Rating}</span>
             <button className="rate-button-grid">
               <FaRegStar className="rate-star-icon" />
               Rate
             </button>
           </div>
-          <p className="movie-title">{movie.title}</p>
+          <p className="movie-title">{movie.Title}</p>
           <div className="movie-meta">
-            <span>{movie.year}</span>
-            <span>{movie.duration}</span>
+            <span>{movie.Year}</span>
+            <span>{movie.Runtime}</span>
           </div>
         </div>
         <button className="details-button-grid">Details</button>

@@ -1,3 +1,4 @@
+# models.py
 from sqlalchemy import Column, Integer, BigInteger, Text, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -16,6 +17,8 @@ class Movie(Base):
     Image_Link = Column(Text, nullable=True)
     Title = Column(Text, nullable=False)
     Year = Column(Integer, nullable=False)
+    Certificate = Column(Text, nullable=True)
+    Runtime = Column(Text, nullable=True)
     Genre = Column(Text, nullable=True)
     Rating = Column(Float, nullable=True)
     Description = Column(Text, nullable=True)
