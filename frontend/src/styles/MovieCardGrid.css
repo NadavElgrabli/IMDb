@@ -48,8 +48,8 @@
 
 .bookmark-icon-grid {
   position: absolute;
-  top: 0px;
-  left: -4px;
+  top: -3px;
+  left: -7px;
   color: #272626;
   font-size: 40px;
   cursor: pointer;
