@@ -1,11 +1,16 @@
-# main.py
+# main.py 
 from fastapi import FastAPI, Depends, HTTPException, Query
+from sqlalchemy import and_, or_
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import List
 from backend.models import SessionLocal, Movie
 from fastapi.middleware.cors import CORSMiddleware
 from backend.utils.sorting import apply_sorting  # Import the sorting logic
+from collections import Counter
+from sqlalchemy import func
+
+
 
 app = FastAPI()
 
@@ -52,22 +57,56 @@ class MovieResponse(MovieBase):
 async def root():
     return {"message": "Welcome to the IMDb Movies API!"}
 
+
+# @app.get("/movies", response_model=List[MovieResponse])
+# def get_movies(
+#     skip: int = 0,
+#     limit: int = 10,
+#     sort_by: str = Query("rating", regex="^(rating|year|title|genre|runtime)$"),
+#     sort_order: str = Query("desc", regex="^(asc|desc)$"),
+#     genres: str = Query(None),
+#     db: Session = Depends(get_db),
+# ):
+#     query = db.query(Movie)
+
+#     if genres:
+#         genre_list = [genre.strip() for genre in genres.split(",")]
+#         query = query.filter(and_(*(Movie.Genre.like(f"%{genre}%") for genre in genre_list)))
+
+#     query = apply_sorting(query, sort_by, sort_order)
+#     movies = query.offset(skip).limit(limit).all()
+#     return movies
+
+
 @app.get("/movies", response_model=List[MovieResponse])
 def get_movies(
     skip: int = 0,
     limit: int = 10,
-    sort_by: str = Query("rating", regex="^(rating|year|title|genre|runtime)$"),  # Default sorting by rating
-    sort_order: str = Query("desc", regex="^(asc|desc)$"),  # Default to descending order
+    sort_by: str = Query("rating", regex="^(rating|year|title|genre|runtime)$"),
+    sort_order: str = Query("desc", regex="^(asc|desc)$"),
+    genres: str = Query(None),
     db: Session = Depends(get_db),
 ):
     query = db.query(Movie)
-    
-    # Apply sorting logic
+
+    if genres:
+        genre_list = [genre.strip() for genre in genres.split(",")]
+        query = query.filter(and_(*(Movie.Genre.like(f"%{genre}%") for genre in genre_list)))
+
+
     query = apply_sorting(query, sort_by, sort_order)
-    
-    # Apply pagination
     movies = query.offset(skip).limit(limit).all()
     return movies
+
+
+@app.get("/genres")
+def get_genres(db: Session = Depends(get_db)):
+    all_genres = db.query(Movie.Genre).all()
+    genre_counter = Counter(
+        genre.strip() for genres in all_genres for genre in genres[0].split(",")
+    )
+    return [{"genre": genre, "count": count} for genre, count in genre_counter.items()]
+
 
 @app.post("/movies", response_model=MovieResponse)
 def create_movie(movie: MovieCreate, db: Session = Depends(get_db)):
@@ -83,6 +122,7 @@ def get_movie(movie_id: int, db: Session = Depends(get_db)):
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
     return movie
+
 
 @app.put("/movies/{movie_id}", response_model=MovieResponse)
 def update_movie(movie_id: int, movie: MovieCreate, db: Session = Depends(get_db)):

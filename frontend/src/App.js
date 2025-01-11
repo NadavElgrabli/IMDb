@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect, useCallback } from "react";
 import Header from "./components/Header";
 import MainTitle from "./components/MainTitle";
@@ -14,47 +13,53 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState("rating");
   const [sortOrder, setSortOrder] = useState("desc");
+  const [genres, setGenres] = useState([]);
 
-  const fetchMovies = async (
-    pageToFetch = 0,
-    currentSortBy,
-    currentSortOrder
-  ) => {
-    setIsLoading(true);
+  const fetchMovies = useCallback(
+    async (
+      pageToFetch,
+      currentSortBy,
+      currentSortOrder,
+      selectedGenres,
+      add
+    ) => {
+      setIsLoading(true);
+      try {
+        const limit = 10; // Number of movies per page
+        const genresQuery =
+          selectedGenres.length > 0
+            ? `&genres=${selectedGenres.join(",")}`
+            : "";
 
-    try {
-      const limit = 10; // Number of movies per page
-      const response = await fetch(
-        `http://127.0.0.1:8000/movies?skip=${
-          pageToFetch * limit
-        }&limit=${limit}&sort_by=${currentSortBy}&sort_order=${currentSortOrder}`
-      );
-      const data = await response.json();
+        const response = await fetch(
+          `http://127.0.0.1:8000/movies?skip=${
+            pageToFetch * limit
+          }&limit=${limit}&sort_by=${currentSortBy}&sort_order=${currentSortOrder}${genresQuery}`
+        );
+        const data = await response.json();
 
-      // Validate if data is an array
-      if (Array.isArray(data)) {
-        // Avoid duplicate movies by using a Map for unique entries
-        setMovies((prevMovies) => {
-          const movieMap = new Map(
-            prevMovies.map((movie) => [movie.id, movie])
-          );
-          data.forEach((movie) => movieMap.set(movie.id, movie));
-          return Array.from(movieMap.values());
-        });
+        if (Array.isArray(data)) {
+          // Reset the movies state when the data is fetched (clear previous data)
+          if (!add) {
+            setMovies(data);
+          } else {
+            // Append new data to the existing movies
+            setMovies((prevMovies) => [...prevMovies, ...data]);
+          }
 
-        // Check if more movies are available
-        if (data.length < limit) {
-          setHasMore(false);
+          // Ensure pagination logic works correctly
+          setHasMore(data.length >= limit);
+        } else {
+          console.error("Expected an array but got:", data);
         }
-      } else {
-        console.error("Expected an array but got:", data);
+      } catch (error) {
+        console.error("Failed to fetch movies:", error);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Failed to fetch movies:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+    []
+  );
 
   const handleScroll = useCallback(() => {
     if (
@@ -65,22 +70,27 @@ const App = () => {
         setPage((prevPage) => prevPage + 1); // Increment page number
       }
     }
-  }, [hasMore, isLoading]); // Memoize handleScroll to avoid unnecessary re-renders
+  }, [hasMore, isLoading]);
 
   useEffect(() => {
-    fetchMovies(page, sortBy, sortOrder);
-  }, [page, sortBy, sortOrder]); // Refetch movies when sortBy or sortOrder changes
+    fetchMovies(page, sortBy, sortOrder, genres, true);
+  }, [page, sortBy, sortOrder, genres, fetchMovies]);
+
+  useEffect(() => {
+    setMovies([]); // Clear existing movies when genres change
+    setPage(0); // Reset page
+    setHasMore(true); // Reset pagination state
+    fetchMovies(0, sortBy, sortOrder, genres, false); // Fetch movies with updated genres
+  }, [genres, sortBy, sortOrder, fetchMovies]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [handleScroll]); // Add handleScroll to the dependency array
+  }, [handleScroll]);
 
   const handleSortChange = (sortType, order) => {
-    // Map sort types to API parameters
     const sortMapping = {
       Ranking: "rating",
       "Release Date": "year",
@@ -92,9 +102,9 @@ const App = () => {
     if (mappedSortBy) {
       setSortBy(mappedSortBy);
       setSortOrder(order);
-      setMovies([]);
-      setPage(0);
-      setHasMore(true);
+      setMovies([]); // Clear existing movies
+      setPage(0); // Reset page
+      setHasMore(true); // Reset pagination state
     } else {
       console.error(`Invalid sort type: ${sortType}`);
     }
@@ -108,13 +118,17 @@ const App = () => {
         onViewChange={setViewType}
         currentViewType={viewType}
         onSortChange={handleSortChange}
+        setGenres={setGenres}
+        genres={genres}
+        movieCount={movies.length}
       />
       <MovieList movies={movies} viewType={viewType} />
       {isLoading && <p>Loading...</p>}
-      {!hasMore && <p>No more movies to load.</p>}
+      {!hasMore && <p className="end-of-movies">No more movies to load.</p>}
       <Footer />
     </div>
   );
 };
 
 export default App;
+

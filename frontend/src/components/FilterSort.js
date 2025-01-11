@@ -1,3 +1,4 @@
+// FilterSort.js
 import React, { useState, useEffect, useRef } from "react";
 import { IoFilter } from "react-icons/io5";
 import { FaListUl } from "react-icons/fa";
@@ -7,11 +8,18 @@ import { FaArrowDownLong } from "react-icons/fa6";
 import FilterDialog from "./FilterDialog";
 import "./../styles/FilterSort.css";
 
-const FilterSort = ({ onViewChange, currentViewType, onSortChange }) => {
+const FilterSort = ({
+  onViewChange,
+  currentViewType,
+  onSortChange,
+  setGenres,
+  genres,
+  movieCount,
+}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [currentSort, setCurrentSort] = useState("Ranking"); // Default sort option
-  const [sortOrder, setSortOrder] = useState("desc"); // Default sort order
+  const [currentSort, setCurrentSort] = useState("Ranking"); 
+  const [sortOrder, setSortOrder] = useState("desc"); 
 
   // Create a reference for the dropdown to detect clicks outside of it
   const dropdownRef = useRef(null);
@@ -19,9 +27,8 @@ const FilterSort = ({ onViewChange, currentViewType, onSortChange }) => {
   // Close the dropdown if the user clicks outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Check if the click was outside the dropdown menu
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false); // Close the dropdown if clicked outside
+        setIsDropdownOpen(false); 
       }
     };
 
@@ -40,20 +47,21 @@ const FilterSort = ({ onViewChange, currentViewType, onSortChange }) => {
     if (sortBy !== currentSort) {
       setCurrentSort(sortBy);
       setIsDropdownOpen(false);
-      onSortChange(sortBy, sortOrder); // Pass sort option and order to parent
+      onSortChange(sortBy, sortOrder); 
     }
   };
 
   const toggleSortOrder = () => {
     const newSortOrder = sortOrder === "desc" ? "asc" : "desc";
     setSortOrder(newSortOrder);
-    onSortChange(currentSort, newSortOrder); // Update sort order in parent
+    onSortChange(currentSort, newSortOrder); 
   };
 
   return (
     <div className="filter-sort">
       <div className="filter-sort-top">
-        <div className="titles-count">250 Titles</div>
+        <div className="titles-count">{movieCount} Titles</div>{" "}
+        {/* Dynamic count */}
         <div className="view-buttons">
           <button
             className={`view-button detailed-view ${
@@ -110,7 +118,6 @@ const FilterSort = ({ onViewChange, currentViewType, onSortChange }) => {
                 <li onClick={() => handleSortChange("Alphabetical")}>
                   Alphabetical
                 </li>
-                {/* <li onClick={() => handleSortChange("Runtime")}>Runtime</li> */}
               </ul>
             )}
           </div>
@@ -127,6 +134,8 @@ const FilterSort = ({ onViewChange, currentViewType, onSortChange }) => {
       <FilterDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
+        setGenres={setGenres}
+        genres={genres}
       />
     </div>
   );

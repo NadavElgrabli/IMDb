@@ -6,7 +6,7 @@ import { FaPlus } from "react-icons/fa6";
 import MovieDialog from "./MovieDialog";
 import "./../styles/MovieCardCompact.css";
 
-const MovieCardCompact = ({ movie, isDetailedView = false }) => {
+const MovieCardCompact = ({ movie, index, isDetailedView = false }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
@@ -25,7 +25,9 @@ const MovieCardCompact = ({ movie, isDetailedView = false }) => {
       </div>
       <img src={movie.Image_Link} alt={movie.title} />
       <div className="movie-details">
-        <h3>{movie.Title}</h3>
+        <h3>
+          {index}. {movie.Title}
+        </h3> {/* Display index next to the title */}
         <p className="movie-meta">
           <span>{movie.Year}</span>
           <span>{movie.Runtime}</span>

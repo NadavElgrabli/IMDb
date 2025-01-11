@@ -17,7 +17,7 @@ const MainTitle = () => {
       </div>
 
       {/* Subheading Section */}
-      <h1>IMDb Top 250 Movies</h1>
+      <h1>IMDb Top 1000 Movies</h1>
       <p>As rated by regular IMDb voters.</p>
     </div>
   );

@@ -15,3 +15,8 @@ body {
     transition: background-color 0.3s;
   }
   
+
+  .end-of-movies{
+    margin-left: 25px;
+    font-weight: bold;
+  }

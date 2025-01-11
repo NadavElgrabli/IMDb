@@ -10,14 +10,14 @@ const MovieList = ({ movies, viewType }) => {
   
     return (
       <div className={className}>
-        {movies.map((movie) => {
+        {movies.map((movie, index) => {
           if (viewType === "detailed") {
-            return <MovieCardDetailed key={movie.id} movie={movie} />;
+            return <MovieCardDetailed key={movie.id} movie={movie} index={index + 1}/>;
           }
           if (viewType === "compact") {
-            return <MovieCardCompact key={movie.id} movie={movie} />;
+            return <MovieCardCompact key={movie.id} movie={movie} index={index + 1}/>;
           }
-          return <MovieCardGrid key={movie.id} movie={movie} />;
+          return <MovieCardGrid key={movie.id} movie={movie} index={index + 1}/>;
         })}
       </div>
     );
