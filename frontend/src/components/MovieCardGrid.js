@@ -1,11 +1,22 @@
-import React from "react";
-import "./../styles/MovieCardGrid.css";
+import React, { useState } from "react";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa6"; // Filled star for rating
 import { FaRegStar } from "react-icons/fa"; // Outlined star for the Rate button
+import MovieDialog from "./MovieDialog"; // Import the MovieDialog component
+import "./../styles/MovieCardGrid.css";
 
 const MovieCardGrid = ({ movie }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // State to handle dialog visibility
+
+  const handleDialogOpen = () => {
+    setIsDialogOpen(true); // Open the dialog
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false); // Close the dialog
+  };
+
   return (
     <div className="movie-card-grid">
       <div className="movie-card-item">
@@ -31,8 +42,17 @@ const MovieCardGrid = ({ movie }) => {
             <span>{movie.Runtime}</span>
           </div>
         </div>
-        <button className="details-button-grid">Details</button>
+        <button className="details-button-grid" onClick={handleDialogOpen}>
+          Details
+        </button>
       </div>
+
+      {/* Render MovieDialog when isDialogOpen is true */}
+      <MovieDialog
+        movie={movie}
+        isOpen={isDialogOpen}
+        onClose={handleDialogClose}
+      />
     </div>
   );
 };

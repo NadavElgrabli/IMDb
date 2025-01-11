@@ -1,3 +1,4 @@
+//MovieCardDetailed.js
 import React from "react";
 import "./../styles/MovieCardDetailed.css";
 import MovieCardCompact from "./MovieCardCompact";
