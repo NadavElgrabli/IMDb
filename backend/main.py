@@ -1,4 +1,4 @@
-# main.py 
+# main.py
 from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import Session
@@ -9,7 +9,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.utils.sorting import apply_sorting  # Import the sorting logic
 from collections import Counter
 from sqlalchemy import func
-
 
 
 app = FastAPI()
@@ -57,7 +56,6 @@ class MovieResponse(MovieBase):
 async def root():
     return {"message": "Welcome to the IMDb Movies API!"}
 
-
 @app.get("/movies", response_model=List[MovieResponse])
 def get_movies(
     page: int = 0,
@@ -65,17 +63,37 @@ def get_movies(
     sort_by: str = Query("rating", regex="^(rating|year|title|genre|runtime)$"),
     sort_order: str = Query("desc", regex="^(asc|desc)$"),
     genres: str = Query(None),
+    release_year_from: int = Query(None, alias="release_year_from"),
+    release_year_to: int = Query(None, alias="release_year_to"),
+    rating_from: float = Query(None, alias="rating_from"),
+    rating_to: float = Query(None, alias="rating_to"),
     db: Session = Depends(get_db),
 ):
     query = db.query(Movie)
 
+    # Apply genre filters
     if genres:
         genre_list = [genre.strip() for genre in genres.split(",")]
         query = query.filter(and_(*(Movie.Genre.like(f"%{genre}%") for genre in genre_list)))
 
+    # Apply year filters
+    if release_year_from:
+        query = query.filter(Movie.Year >= release_year_from)
+    if release_year_to:
+        query = query.filter(Movie.Year <= release_year_to)
 
+    # Apply rating filters
+    if rating_from:
+        query = query.filter(Movie.Rating >= rating_from)
+    if rating_to:
+        query = query.filter(Movie.Rating <= rating_to)
+
+    # Apply sorting
     query = apply_sorting(query, sort_by, sort_order)
+
+    # Apply pagination
     movies = query.offset(page * page_size).limit(page_size).all()
+    
     return movies
 
 @app.get("/movies/{movie_id}", response_model=MovieResponse)
@@ -84,7 +102,6 @@ def get_movie(movie_id: int, db: Session = Depends(get_db)):
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
     return movie
-
 
 @app.get("/genres")
 def get_genres(db: Session = Depends(get_db)):

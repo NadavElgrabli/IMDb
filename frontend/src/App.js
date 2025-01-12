@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useEffect, useCallback } from "react";
 import Header from "./components/Header";
 import MainTitle from "./components/MainTitle";
@@ -14,6 +15,14 @@ const App = () => {
   const [sortBy, setSortBy] = useState("rating");
   const [sortOrder, setSortOrder] = useState("desc");
   const [genres, setGenres] = useState([]);
+  
+  // Track filters state
+  const [filters, setFilters] = useState({
+    release_year_from: null,
+    release_year_to: null,
+    rating_from: null,
+    rating_to: null,
+  });
 
   const fetchMovies = useCallback(
     async (
@@ -21,18 +30,25 @@ const App = () => {
       currentSortBy,
       currentSortOrder,
       selectedGenres,
+      filters,
       add
     ) => {
       setIsLoading(true);
       try {
-        const pageSize = 10; // Number of movies per page
+        const pageSize = 10; 
         const genresQuery =
           selectedGenres.length > 0
             ? `&genres=${selectedGenres.join(",")}`
             : "";
 
+        // Build filters query
+        const filtersQuery = Object.entries(filters)
+          .filter(([key, value]) => value !== null)
+          .map(([key, value]) => `&${key}=${value}`)
+          .join("");
+
         const response = await fetch(
-          `http://127.0.0.1:8000/movies?page=${pageToFetch}&page_size=${pageSize}&sort_by=${currentSortBy}&sort_order=${currentSortOrder}${genresQuery}`
+          `http://127.0.0.1:8000/movies?page=${pageToFetch}&page_size=${pageSize}&sort_by=${currentSortBy}&sort_order=${currentSortOrder}${genresQuery}${filtersQuery}`
         );
         const data = await response.json();
 
@@ -66,21 +82,21 @@ const App = () => {
       document.documentElement.offsetHeight
     ) {
       if (hasMore && !isLoading) {
-        setPage((prevPage) => prevPage + 1); // Increment page number
+        setPage((prevPage) => prevPage + 1); 
       }
     }
   }, [hasMore, isLoading]);
 
   useEffect(() => {
-    fetchMovies(page, sortBy, sortOrder, genres, true);
-  }, [page, sortBy, sortOrder, genres, fetchMovies]);
+    fetchMovies(page, sortBy, sortOrder, genres, filters, true);
+  }, [page, sortBy, sortOrder, genres, filters, fetchMovies]);
 
   useEffect(() => {
-    setMovies([]); // Clear existing movies when genres change
-    setPage(0); // Reset page
-    setHasMore(true); // Reset pagination state
-    fetchMovies(0, sortBy, sortOrder, genres, false); // Fetch movies with updated genres
-  }, [genres, sortBy, sortOrder, fetchMovies]);
+    setMovies([]); 
+    setPage(0); 
+    setHasMore(true); 
+    fetchMovies(0, sortBy, sortOrder, genres, filters, false); 
+  }, [genres, filters, sortBy, sortOrder, fetchMovies]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -109,6 +125,10 @@ const App = () => {
     }
   };
 
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters); 
+  };
+
   return (
     <div>
       <Header />
@@ -120,6 +140,7 @@ const App = () => {
         setGenres={setGenres}
         genres={genres}
         movieCount={movies.length}
+        onFilterChange={handleFilterChange}
       />
       <MovieList movies={movies} viewType={viewType} />
       {isLoading && <p>Loading...</p>}
