@@ -19,8 +19,8 @@ def apply_sorting(query: Query, sort_by: str, sort_order: str) -> Query:
 
     if sort_column:
         if sort_order == "asc":
-            query = query.order_by(asc(sort_column))
+            query = query.order_by(asc(sort_column), Movie.id)  # Secondary sort by title
         else:  # Default to descending order
-            query = query.order_by(desc(sort_column))
+            query = query.order_by(desc(sort_column), Movie.id)
 
     return query

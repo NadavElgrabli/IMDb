@@ -25,22 +25,21 @@ const App = () => {
     ) => {
       setIsLoading(true);
       try {
-        const limit = 10; // Number of movies per page
+        const pageSize = 10; // Number of movies per page
         const genresQuery =
           selectedGenres.length > 0
             ? `&genres=${selectedGenres.join(",")}`
             : "";
 
         const response = await fetch(
-          `http://127.0.0.1:8000/movies?skip=${
-            pageToFetch * limit
-          }&limit=${limit}&sort_by=${currentSortBy}&sort_order=${currentSortOrder}${genresQuery}`
+          `http://127.0.0.1:8000/movies?page=${pageToFetch}&page_size=${pageSize}&sort_by=${currentSortBy}&sort_order=${currentSortOrder}${genresQuery}`
         );
         const data = await response.json();
 
         if (Array.isArray(data)) {
+          console.log(data);
           // Reset the movies state when the data is fetched (clear previous data)
-          if (!add) {
+          if (pageToFetch === 0) {
             setMovies(data);
           } else {
             // Append new data to the existing movies
@@ -48,7 +47,7 @@ const App = () => {
           }
 
           // Ensure pagination logic works correctly
-          setHasMore(data.length >= limit);
+          setHasMore(data.length >= pageSize);
         } else {
           console.error("Expected an array but got:", data);
         }
@@ -131,4 +130,3 @@ const App = () => {
 };
 
 export default App;
-

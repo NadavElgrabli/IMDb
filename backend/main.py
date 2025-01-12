@@ -58,30 +58,10 @@ async def root():
     return {"message": "Welcome to the IMDb Movies API!"}
 
 
-# @app.get("/movies", response_model=List[MovieResponse])
-# def get_movies(
-#     skip: int = 0,
-#     limit: int = 10,
-#     sort_by: str = Query("rating", regex="^(rating|year|title|genre|runtime)$"),
-#     sort_order: str = Query("desc", regex="^(asc|desc)$"),
-#     genres: str = Query(None),
-#     db: Session = Depends(get_db),
-# ):
-#     query = db.query(Movie)
-
-#     if genres:
-#         genre_list = [genre.strip() for genre in genres.split(",")]
-#         query = query.filter(and_(*(Movie.Genre.like(f"%{genre}%") for genre in genre_list)))
-
-#     query = apply_sorting(query, sort_by, sort_order)
-#     movies = query.offset(skip).limit(limit).all()
-#     return movies
-
-
 @app.get("/movies", response_model=List[MovieResponse])
 def get_movies(
-    skip: int = 0,
-    limit: int = 10,
+    page: int = 0,
+    page_size: int = 10,
     sort_by: str = Query("rating", regex="^(rating|year|title|genre|runtime)$"),
     sort_order: str = Query("desc", regex="^(asc|desc)$"),
     genres: str = Query(None),
@@ -95,7 +75,7 @@ def get_movies(
 
 
     query = apply_sorting(query, sort_by, sort_order)
-    movies = query.offset(skip).limit(limit).all()
+    movies = query.offset(page * page_size).limit(page_size).all()
     return movies
 
 
