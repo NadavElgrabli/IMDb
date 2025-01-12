@@ -8,14 +8,12 @@
   background: white;
 }
 
-/* Main Title Header */
 .main-title-header {
   display: flex;
   justify-content: space-between; 
   align-items: center; 
 }
 
-/* Title Styling */
 .main-title h2 {
   font-size: 24px;
   font-weight: bold;
@@ -23,7 +21,6 @@
   margin: 0;
 }
 
-/* Share Section */
 .share-section {
   display: flex;
   align-items: center;
@@ -38,7 +35,6 @@
   cursor: default; 
 }
 
-/* Share Button */
 .share-button {
   background-color: transparent;
   border: none;
@@ -64,7 +60,6 @@
   transition: color 0.3s ease; 
 }
 
-/* Subtitle Styling */
 .main-title h1 {
   font-size: 37px;
   font-weight: normal;

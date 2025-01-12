@@ -118,7 +118,7 @@
   color: #0057b8;
   cursor: pointer;
   margin-right: 10px;
-  border-radius: 20px; /* Make it circular */
+  border-radius: 20px;
 }
 
 .info-button:hover {

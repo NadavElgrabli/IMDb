@@ -13,11 +13,11 @@ header {
   display: flex;
   align-items: center;
   gap: 15px;
-  flex-grow: 1; /* Allow the left side of the header to take up remaining space */
+  flex-grow: 1; 
 }
 
 .logo {
-  height: 32px; /* Make IMDb logo slightly smaller */
+  height: 32px; 
 }
 
 .menu-button {
@@ -34,7 +34,7 @@ header {
 
 .menu-button .menu-icon {
   margin-right: 8px;
-  font-size: 24px; /* Made the menu icon larger */
+  font-size: 24px; 
 }
 
 .menu-button:hover {

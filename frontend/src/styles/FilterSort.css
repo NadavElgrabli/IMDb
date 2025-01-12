@@ -38,12 +38,10 @@
   overflow: hidden; 
 }
 
-/* Apply hover effect */
 .view-button:hover {
   background-color: #e6e6e6; 
 }
 
-/* Styling for the icons inside the buttons */
 .view-button svg {
   width: 24px;
   height: 24px;
@@ -51,10 +49,9 @@
 }
 
 .view-button.active svg {
-  color: rgb(8, 103, 245); /* Light blue for active icons */
+  color: rgb(8, 103, 245); 
 }
 
-/* Middle Section - Filter Button */
 .filter-button-container {
   display: flex;
   justify-content: flex-start;
@@ -130,18 +127,18 @@
 }
 
 .sort-arrow:hover {
-  background-color: #e6e6e6; /* Grey hover effect */
+  background-color: #e6e6e6; 
 }
 
 .sort-arrow svg {
   width: 18px;
   height: 18px;
-  color: #3300ff; /* Light blue color for the icon */
+  color: #3300ff; 
 }
 
 /* Dropdown Styling */
 .sort-dropdown {
-  position: relative; /* Set relative to position the dropdown */
+  position: relative; 
 }
 
 .sort-menu {

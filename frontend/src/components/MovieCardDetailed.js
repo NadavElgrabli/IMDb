@@ -4,7 +4,6 @@ import "./../styles/MovieCardDetailed.css";
 import MovieCardCompact from "./MovieCardCompact";
 
 const MovieCardDetailed = ({ movie, index }) => {
-  // Collect the stars into an array
   const stars = [movie.Star1, movie.Star2, movie.Star3, movie.Star4];
 
   return (
@@ -17,7 +16,7 @@ const MovieCardDetailed = ({ movie, index }) => {
           <a href={`#www`}>{movie.Director}</a>
           <span className="label">Stars</span>{" "}
           {stars
-            .filter((star) => star) // Filter out empty star values (if any)
+            .filter((star) => star) 
             .map((star, index) => (
               <a key={index} href={`#www`}>
                 {star}

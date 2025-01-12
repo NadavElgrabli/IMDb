@@ -144,7 +144,6 @@ const App = () => {
       />
       <MovieList movies={movies} viewType={viewType} />
       {isLoading && <p>Loading...</p>}
-      {!hasMore && <p className="end-of-movies">No more movies to load.</p>}
       <Footer />
     </div>
   );

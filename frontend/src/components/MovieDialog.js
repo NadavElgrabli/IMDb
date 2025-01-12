@@ -9,7 +9,6 @@ const MovieDialog = ({ movie, isOpen, onClose }) => {
   return (
     <div className="movie-dialog-overlay">
       <div className="movie-dialog-content">
-        {/* Close Button */}
         <button className="movie-dialog-close-button" onClick={onClose}>
           ✕
         </button>
@@ -41,7 +40,6 @@ const MovieDialog = ({ movie, isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Description */}
         <p className="movie-dialog-description">{movie.Description}</p>
 
         {/* Extra Details: Director and Stars */}

@@ -9,7 +9,6 @@ const Header = () => {
     <>
       <header>
         <div className="header-left">
-          {/* Adjust IMDb logo size */}
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg"
             alt="IMDb Logo"
@@ -26,7 +25,7 @@ const Header = () => {
               className="search-bar"
             />
             <button className="search-button">
-              <FaMagnifyingGlass /> {/* Updated icon */}
+              <FaMagnifyingGlass /> 
             </button>
           </div>
         </div>

@@ -5,7 +5,6 @@ import "./../styles/MainTitle.css";
 const MainTitle = () => {
   return (
     <div className="main-title">
-      {/* Main Title Section */}
       <div className="main-title-header">
         <h2>IMDb Charts</h2>
         <div className="share-section">

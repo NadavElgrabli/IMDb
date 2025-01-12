@@ -44,7 +44,7 @@ const MovieCardGrid = ({ movie, index }) => {
             {index}.{" "}
             <span
               className="clickable-title-grid"
-              title={movie.Title} // Show full title on hover
+              title={movie.Title} 
             >
               {truncateTitle(movie.Title, 12)}
             </span>
