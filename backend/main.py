@@ -78,6 +78,13 @@ def get_movies(
     movies = query.offset(page * page_size).limit(page_size).all()
     return movies
 
+@app.get("/movies/{movie_id}", response_model=MovieResponse)
+def get_movie(movie_id: int, db: Session = Depends(get_db)):
+    movie = db.query(Movie).filter(Movie.id == movie_id).first()
+    if not movie:
+        raise HTTPException(status_code=404, detail="Movie not found")
+    return movie
+
 
 @app.get("/genres")
 def get_genres(db: Session = Depends(get_db)):
@@ -95,14 +102,6 @@ def create_movie(movie: MovieCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_movie)
     return db_movie
-
-@app.get("/movies/{movie_id}", response_model=MovieResponse)
-def get_movie(movie_id: int, db: Session = Depends(get_db)):
-    movie = db.query(Movie).filter(Movie.id == movie_id).first()
-    if not movie:
-        raise HTTPException(status_code=404, detail="Movie not found")
-    return movie
-
 
 @app.put("/movies/{movie_id}", response_model=MovieResponse)
 def update_movie(movie_id: int, movie: MovieCreate, db: Session = Depends(get_db)):

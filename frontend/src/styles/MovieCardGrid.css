@@ -109,8 +109,18 @@
 
 .movie-title {
   font-size: 15px;
-  margin: 5px 0;
-  margin-bottom: 25px;
+  margin: 0px 0;
+  margin-bottom: 10px;
+}
+
+.clickable-title-grid {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none; /* No underline by default */
+}
+
+.clickable-title-grid:hover {
+  text-decoration: underline; /* Underline on hover */
 }
 
 .movie-meta {
@@ -130,6 +140,7 @@
   cursor: pointer;
   align-self: center;
   font-weight: bold;
+  margin-bottom: 13px;
 }
 
 .details-button-grid:hover {

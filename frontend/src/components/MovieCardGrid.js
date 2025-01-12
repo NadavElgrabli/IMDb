@@ -18,6 +18,9 @@ const MovieCardGrid = ({ movie, index }) => {
     setIsDialogOpen(false); 
   };
 
+  const truncateTitle = (title, maxLength) =>
+    title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
+
   return (
     <div className="movie-card-grid">
       <div className="movie-card-item">
@@ -37,8 +40,15 @@ const MovieCardGrid = ({ movie, index }) => {
               Rate
             </button>
           </div>
-          <p className="movie-title"> {index}. {movie.Title}</p>
-          <div className="movie-meta">
+          <p className="movie-title">
+            {index}.{" "}
+            <span
+              className="clickable-title-grid"
+              title={movie.Title} // Show full title on hover
+            >
+              {truncateTitle(movie.Title, 12)}
+            </span>
+          </p>          <div className="movie-meta">
             <span>{movie.Year}</span>
             <span>{movie.Runtime}</span>
           </div>
