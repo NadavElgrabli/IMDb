@@ -4,6 +4,7 @@ import { RiInformationLine } from "react-icons/ri";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
 import MovieDialog from "./MovieDialog";
+import { Link } from "react-router-dom";
 import "./../styles/MovieCardCompact.css";
 
 const MovieCardCompact = ({ movie, index, isDetailedView = false }) => {
@@ -23,11 +24,14 @@ const MovieCardCompact = ({ movie, index, isDetailedView = false }) => {
         <IoBookmarkSharp />
         <FaPlus className="plus-icon" />
       </div>
-      <img src={movie.Image_Link} alt={movie.title} />
+      <img src={movie.Image_Link} alt={movie.Title} />
       <div className="movie-details">
         <h3>
-          {index}. {movie.Title}
-        </h3> {/* Display index next to the title */}
+          {index}.{" "}
+          <Link to={`/movies/${movie.id}`} className="movie-title-link">
+            {movie.Title}
+          </Link>
+        </h3>
         <p className="movie-meta">
           <span>{movie.Year}</span>
           <span>{movie.Runtime}</span>
@@ -45,7 +49,11 @@ const MovieCardCompact = ({ movie, index, isDetailedView = false }) => {
       <RiInformationLine className="info-button" onClick={handleDialogOpen} />
 
       {/* Render MovieDialog */}
-      <MovieDialog movie={movie} isOpen={isDialogOpen} onClose={handleDialogClose} />
+      <MovieDialog
+        movie={movie}
+        isOpen={isDialogOpen}
+        onClose={handleDialogClose}
+      />
     </div>
   );
 };

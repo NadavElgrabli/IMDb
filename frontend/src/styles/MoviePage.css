@@ -1,0 +1,32 @@
+/* MoviePage.css */
+.movie-page {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .movie-page h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  .movie-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .movie-info img {
+    width:100px;
+    height: 100px;
+  }
+  
+  .movie-genres, .movie-director, .movie-stars {
+    margin-top: 20px;
+    font-size: 1.2em;
+  }
+  
+  .movie-genres strong, .movie-director strong, .movie-stars strong {
+    font-weight: bold;
+  }
+  

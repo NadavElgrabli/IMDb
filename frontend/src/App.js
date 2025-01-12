@@ -1,10 +1,12 @@
 // App.js
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React, { useState, useEffect, useCallback } from "react";
 import Header from "./components/Header";
 import MainTitle from "./components/MainTitle";
 import FilterSort from "./components/FilterSort";
 import MovieList from "./components/MovieList";
 import Footer from "./components/Footer";
+import MoviePage from "./components/MoviePage";
 
 const App = () => {
   const [viewType, setViewType] = useState("compact");
@@ -15,7 +17,7 @@ const App = () => {
   const [sortBy, setSortBy] = useState("rating");
   const [sortOrder, setSortOrder] = useState("desc");
   const [genres, setGenres] = useState([]);
-  
+
   // Track filters state
   const [filters, setFilters] = useState({
     release_year_from: null,
@@ -35,7 +37,7 @@ const App = () => {
     ) => {
       setIsLoading(true);
       try {
-        const pageSize = 10; 
+        const pageSize = 10;
         const genresQuery =
           selectedGenres.length > 0
             ? `&genres=${selectedGenres.join(",")}`
@@ -82,7 +84,7 @@ const App = () => {
       document.documentElement.offsetHeight
     ) {
       if (hasMore && !isLoading) {
-        setPage((prevPage) => prevPage + 1); 
+        setPage((prevPage) => prevPage + 1);
       }
     }
   }, [hasMore, isLoading]);
@@ -92,10 +94,10 @@ const App = () => {
   }, [page, sortBy, sortOrder, genres, filters, fetchMovies]);
 
   useEffect(() => {
-    setMovies([]); 
-    setPage(0); 
-    setHasMore(true); 
-    fetchMovies(0, sortBy, sortOrder, genres, filters, false); 
+    setMovies([]);
+    setPage(0);
+    setHasMore(true);
+    fetchMovies(0, sortBy, sortOrder, genres, filters, false);
   }, [genres, filters, sortBy, sortOrder, fetchMovies]);
 
   useEffect(() => {
@@ -126,26 +128,47 @@ const App = () => {
   };
 
   const handleFilterChange = (newFilters) => {
-    setFilters(newFilters); 
+    setFilters(newFilters);
   };
 
   return (
-    <div>
-      <Header />
-      <MainTitle />
-      <FilterSort
-        onViewChange={setViewType}
-        currentViewType={viewType}
-        onSortChange={handleSortChange}
-        setGenres={setGenres}
-        genres={genres}
-        movieCount={movies.length}
-        onFilterChange={handleFilterChange}
-      />
-      <MovieList movies={movies} viewType={viewType} />
-      {isLoading && <p>Loading...</p>}
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        {/* Movie Page Route*/}
+        <Route
+          path="/movies/:movieId"
+          element={
+            <>
+              <Header />
+              <MoviePage />
+            </>
+          }
+        />
+
+        {/* Home Page Route - Render everything else */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <MainTitle />
+              <FilterSort
+                onViewChange={setViewType}
+                currentViewType={viewType}
+                onSortChange={handleSortChange}
+                setGenres={setGenres}
+                genres={genres}
+                movieCount={movies.length}
+                onFilterChange={handleFilterChange}
+              />
+              <MovieList movies={movies} viewType={viewType} />
+              {isLoading && <p>Loading...</p>}
+              <Footer />
+            </>
+          }
+        />
+      </Routes>
+    </Router>
   );
 };
 

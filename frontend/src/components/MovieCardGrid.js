@@ -1,10 +1,10 @@
-// MovieCardGrid.js
 import React, { useState } from "react";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa6"; 
 import { FaRegStar } from "react-icons/fa"; 
 import MovieDialog from "./MovieDialog"; 
+import { Link } from "react-router-dom"; 
 import "./../styles/MovieCardGrid.css";
 
 const MovieCardGrid = ({ movie, index }) => {
@@ -42,13 +42,11 @@ const MovieCardGrid = ({ movie, index }) => {
           </div>
           <p className="movie-title">
             {index}.{" "}
-            <span
-              className="clickable-title-grid"
-              title={movie.Title} 
-            >
-              {truncateTitle(movie.Title, 12)}
-            </span>
-          </p>          <div className="movie-meta">
+            <Link to={`/movies/${movie.id}`} className="clickable-title-grid">
+              {truncateTitle(movie.Title, 12)} 
+            </Link>
+          </p>          
+          <div className="movie-meta">
             <span>{movie.Year}</span>
             <span>{movie.Runtime}</span>
           </div>
