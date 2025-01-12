@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { FaMagnifyingGlass } from "react-icons/fa6"; // Updated icon
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import { HiBars3 } from "react-icons/hi2";
 import { BiSolidBookmarkPlus } from "react-icons/bi";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import "./../styles/Header.css";
 
 const Header = ({ movies }) => {
@@ -12,7 +12,7 @@ const Header = ({ movies }) => {
   const handleSearch = (event) => {
     if (event.key === "Enter" || event.type === "click") {
       const movie = movies.find(
-        (movie) => movie.Title.toLowerCase() === searchTerm.toLowerCase()
+        (movie) => movie.Title.toLowerCase() === searchTerm.toLowerCase() // Exact match
       );
 
       if (movie) {
@@ -27,11 +27,13 @@ const Header = ({ movies }) => {
     <>
       <header>
         <div className="header-left">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg"
-            alt="IMDb Logo"
-            className="logo"
-          />
+          <Link to="/" className="logo-link">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg"
+              alt="IMDb Logo"
+              className="logo"
+            />
+          </Link>
           <button className="menu-button">
             <HiBars3 className="menu-icon" /> Menu
           </button>
@@ -43,7 +45,7 @@ const Header = ({ movies }) => {
               className="search-bar"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyPress={handleSearch}
+              onKeyDown={handleSearch}
             />
             <button className="search-button" onClick={handleSearch}>
               <FaMagnifyingGlass />
@@ -63,7 +65,6 @@ const Header = ({ movies }) => {
           <button className="language-dropdown">EN ▼</button>
         </div>
       </header>
-      {/* Additional black space beneath the header */}
       <div className="header-extension"></div>
     </>
   );
