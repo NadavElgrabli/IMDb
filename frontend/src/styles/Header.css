@@ -44,12 +44,12 @@ header {
 .search-container {
   display: flex;
   align-items: center;
-  flex-grow: 1; /* This makes the search container flexible */
+  flex-grow: 1; 
   background-color: #fff;
   border-radius: 5px;
   overflow: hidden;
-  width: 100%; /* Take up available space */
-  max-width: 900px; /* Increased max-width to make search bar longer */
+  width: 100%; 
+  max-width: 900px; 
 }
 
 .all-dropdown {
@@ -64,7 +64,7 @@ header {
 
 .search-bar {
   flex-grow: 1;
-  padding: 8px; /* Decreased height of the search bar */
+  padding: 8px; 
   border: none;
   font-size: 14px;
   outline: none;
@@ -77,8 +77,8 @@ header {
 }
 
 .search-button svg {
-  font-size: 20px; /* Adjusted size for magnifying glass */
-  color: grey; /* Kept magnifying glass grey */
+  font-size: 20px; 
+  color: grey; 
 }
 
 /* Header-right section (buttons) */
@@ -144,22 +144,22 @@ header {
 }
 
 .watchlist-icon {
-  margin-right: 8px; /* Space between the icon and text */
-  font-size: 24px; /* Adjusted size for the new watchlist icon */
+  margin-right: 8px;
+  font-size: 24px; 
 }
 
 /* Adjust separator positioning */
 .header-separator {
-  width: 1px; /* Thickness of the line */
-  height: 38px; /* Adjust height as needed */
+  width: 1px; 
+  height: 38px; 
   background-color: rgb(78, 77, 77);
-  margin: 0 0px; /* Adjusted margin to move separator more to the right */
+  margin: 0 0px; 
 }
 
 /* Extra black space beneath the header */
 .header-extension {
-  background-color: #000; /* Black background */
-  height: 30px; /* Adjustable height */
+  background-color: #000; 
+  height: 30px; 
   width: 100%;
-  border-top: none; /* Removed line separator between header and extension */
+  border-top: none; 
 }

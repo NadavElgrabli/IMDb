@@ -11,8 +11,8 @@
 /* Main Title Header */
 .main-title-header {
   display: flex;
-  justify-content: space-between; /* Align elements to opposite ends */
-  align-items: center; /* Center vertically */
+  justify-content: space-between; 
+  align-items: center; 
 }
 
 /* Title Styling */
@@ -27,15 +27,15 @@
 .share-section {
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between "Share" and the button */
+  gap: 10px; 
   padding-right: 15px;
   padding-top: 15px;
 }
 
 .share-text {
-  font-size: 17px; /* Slightly larger text */
+  font-size: 17px; 
   color: #000;
-  cursor: default; /* Make text unclickable */
+  cursor: default; 
 }
 
 /* Share Button */
@@ -47,21 +47,21 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  width: 36px; /* Increase width for hover circle */
-  height: 36px; /* Increase height for hover circle */
-  border-radius: 50%; /* Make it circular */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
+  width: 36px; 
+  height: 36px; 
+  border-radius: 50%; 
+  transition: background-color 0.3s ease; 
 }
 
 .share-button:hover {
-  background-color: #ededed; /* Dark grey circle on hover */
+  background-color: #ededed; 
 }
 
 .share-button svg {
-  width: 24px; /* Larger icon size */
+  width: 24px; 
   height: 24px;
-  color: #868686; /* Dark grey icon color */
-  transition: color 0.3s ease; /* Smooth icon color transition */
+  color: #868686; 
+  transition: color 0.3s ease; 
 }
 
 /* Subtitle Styling */

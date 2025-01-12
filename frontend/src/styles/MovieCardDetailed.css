@@ -9,30 +9,26 @@
     background-color: #fff;
 }
 
-/* Description styling */
 .movie-description {
-    font-size: 14px; /* Smaller font size */
+    font-size: 14px; 
     color: #333;
     margin: 10px 0;
     line-height: 1.5;
 }
 
-/* Director and Stars styling */
 .movie-director-stars {
-    display: flex; /* Align director and stars in the same row */
-    gap: 10px; /* Space between director and stars */
-    font-size: 14px; /* Smaller font size */
+    display: flex; 
+    gap: 10px; 
+    font-size: 14px; 
     margin: 5px 0;
     line-height: 1.5;
 }
 
-/* Styling for the bold "Director" and "Stars" */
 .movie-director-stars span.label {
     font-weight: bold;
-    color: #000; /* Keep it black for emphasis */
+    color: #000; 
 }
 
-/* Clickable blue text for names */
 .movie-director-stars a {
     color: #0057b8;
     text-decoration: none;

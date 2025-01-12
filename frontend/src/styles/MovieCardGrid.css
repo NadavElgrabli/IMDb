@@ -4,7 +4,7 @@
   grid-template-columns: repeat(
     auto-fit,
     minmax(170px, 1fr)
-  ); /* Adjust min width for better scaling */
+  ); 
   gap: 9px;
   background: white;
   padding-left: 10px;
@@ -42,7 +42,6 @@
 
 /* Movie information */
 .movie-info {
-  /* flex-grow: 1;  */
   padding: 5px;
 }
 
@@ -75,9 +74,9 @@
 }
 
 .star-icon {
-  font-size: 16px; /* Adjust size to match the rating text */
-  color: #f5c518; /* Ensure star color is consistent */
-  margin-bottom: 4px; /* Slight tweak for alignment, if needed */
+  font-size: 16px; 
+  color: #f5c518; 
+  margin-bottom: 4px; 
 }
 
 .rate-button-grid .rate-star-icon {
@@ -116,11 +115,11 @@
 .clickable-title-grid {
   color: inherit;
   cursor: pointer;
-  text-decoration: none; /* No underline by default */
+  text-decoration: none; 
 }
 
 .clickable-title-grid:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline; 
 }
 
 .movie-meta {

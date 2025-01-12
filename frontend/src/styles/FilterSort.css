@@ -1,7 +1,7 @@
 /* Filter and Sort Section */
 .filter-sort {
   display: flex;
-  flex-direction: column; /* Stack sections vertically */
+  flex-direction: column;
   padding: 10px 20px;
   background-color: #fff;
 }
@@ -26,28 +26,28 @@
 
 /* Styling for the view buttons (making them circles without borders) */
 .view-button {
-  width: 40px; /* Make the button a perfect circle */
+  width: 40px; 
   height: 40px;
-  background-color: transparent; /* No background color */
-  border: none; /* Remove border */
-  border-radius: 50%; /* Make buttons circular */
+  background-color: transparent; 
+  border: none; 
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  overflow: hidden; /* Hide any border or edge */
+  overflow: hidden; 
 }
 
 /* Apply hover effect */
 .view-button:hover {
-  background-color: #e6e6e6; /* Grey hover effect */
+  background-color: #e6e6e6; 
 }
 
 /* Styling for the icons inside the buttons */
 .view-button svg {
   width: 24px;
   height: 24px;
-  color: #888; /* Grey color for icons */
+  color: #888; 
 }
 
 .view-button.active svg {
@@ -57,16 +57,16 @@
 /* Middle Section - Filter Button */
 .filter-button-container {
   display: flex;
-  justify-content: flex-start; /* Align the filter button to the left */
+  justify-content: flex-start;
   margin-bottom: 10px;
 }
 
 .filter-button {
-  width: 50px; /* Width for the rectangular shape */
-  height: 30px; /* Height for consistency */
-  background-color: #0165c9; /* Blue background */
+  width: 50px; 
+  height: 30px; 
+  background-color: #0165c9; 
   border: none;
-  border-radius: 20px; /* Rounded corners */
+  border-radius: 20px; 
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -75,14 +75,13 @@
 }
 
 .filter-button:hover {
-  background-color: #005bb5; /* Darker blue on hover */
+  background-color: #005bb5; 
 }
 
-/* Adjust the icon size and color inside the filter button */
 .filter-button svg {
-  width: 24px; /* Slightly larger size */
+  width: 24px; 
   height: 24px;
-  color: white; /* White icon color */
+  color: white; 
 }
 
 /* Bottom Section */
@@ -113,16 +112,16 @@
 }
 
 .sort-button:hover {
-  background-color: #e6e6e6; /* Grey hover effect */
+  background-color: #e6e6e6; 
 }
 
-/* Arrow Button (new) */
+
 .sort-arrow {
-  width: 30px; /* Make the button a perfect circle */
+  width: 30px; 
   height: 30px;
-  background-color: transparent; /* No background color */
-  border: none; /* Remove border */
-  border-radius: 50%; /* Circle */
+  background-color: transparent; 
+  border: none; 
+  border-radius: 50%; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,28 +145,28 @@
 }
 
 .sort-menu {
-  position: absolute; /* Position dropdown on top of other elements */
-  top: 100%; /* Place dropdown right below the button */
-  left: 0; /* Align dropdown to the left of the button */
-  z-index: 10; /* Ensure it appears on top of other elements */
-  background-color: white; /* White background inside the dropdown */
-  border: 1px solid #ccc; /* Grey border around the dropdown */
-  border-radius: 4px; /* Slight rounding on edges */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Light shadow for depth */
-  list-style: none; /* Remove black circles (default list style) */
-  padding: 5px 0; /* Vertical padding for items */
-  margin: 0; /* Remove margin for clean placement */
-  width: 150px; /* Set dropdown width for consistent styling */
+  position: absolute; 
+  top: 100%;
+  left: 0; 
+  z-index: 10; 
+  background-color: white; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
+  list-style: none; 
+  padding: 5px 0; 
+  margin: 0; 
+  width: 150px; 
 }
 
 .sort-menu li {
-  padding: 8px 12px; /* Space inside each menu item */
-  font-size: 16px; /* Text size */
-  color: #333; /* Dark grey text color */
-  cursor: pointer; /* Pointer cursor for items */
+  padding: 8px 12px; 
+  font-size: 16px; 
+  color: #333; 
+  cursor: pointer; 
 }
 
 .sort-menu li:hover {
-  background-color: #006affe4; /* Light grey hover effect */
-  color: #ffffff; /* Blue text on hover */
+  background-color: #006affe4; 
+  color: #ffffff; 
 }
