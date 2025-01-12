@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6"; // Updated icon
 import { HiBars3 } from "react-icons/hi2";
 import { BiSolidBookmarkPlus } from "react-icons/bi";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./../styles/Header.css";
 
-const Header = () => {
+const Header = ({ movies }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (event) => {
+    if (event.key === "Enter" || event.type === "click") {
+      const movie = movies.find(
+        (movie) => movie.Title.toLowerCase() === searchTerm.toLowerCase()
+      );
+
+      if (movie) {
+        navigate(`/movies/${movie.id}`);
+      } else {
+        alert("Movie not found!");
+      }
+    }
+  };
+
   return (
     <>
       <header>
@@ -23,9 +41,12 @@ const Header = () => {
               type="text"
               placeholder="Search IMDb"
               className="search-bar"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={handleSearch}
             />
-            <button className="search-button">
-              <FaMagnifyingGlass /> 
+            <button className="search-button" onClick={handleSearch}>
+              <FaMagnifyingGlass />
             </button>
           </div>
         </div>

@@ -134,23 +134,23 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Movie Page Route*/}
+        {/*Movie Page Route*/}
         <Route
           path="/movies/:movieId"
           element={
             <>
-              <Header />
+              <Header movies={movies}/>
               <MoviePage />
             </>
           }
         />
 
-        {/* Home Page Route - Render everything else */}
+        {/*Home Page Route*/}
         <Route
           path="/"
           element={
             <>
-              <Header />
+              <Header movies={movies}/>
               <MainTitle />
               <FilterSort
                 onViewChange={setViewType}
